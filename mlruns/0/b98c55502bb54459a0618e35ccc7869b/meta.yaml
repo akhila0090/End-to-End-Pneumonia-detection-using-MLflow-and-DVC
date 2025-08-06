@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/End-to-End-Pneumonia-detection-using-MLflow-and-DVC/mlruns/0/b98c55502bb54459a0618e35ccc7869b/artifacts
+end_time: 1754303379144
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b98c55502bb54459a0618e35ccc7869b
+run_name: orderly-shrew-422
+run_uuid: b98c55502bb54459a0618e35ccc7869b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1754303280201
+status: 4
+tags: []
+user_id: akhil

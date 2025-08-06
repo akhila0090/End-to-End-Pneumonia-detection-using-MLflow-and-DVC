@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pneumonia Detection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #0d1b2a, #1b263b);
+      color: darkblue;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 10px;
+    }
+
+    .container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #0d1b2a;
+      margin-bottom: 20px;
+    }
+
+    p.instructions {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input[type="file"] {
+      margin: 20px 0;
+      padding: 10px;
+      border: 2px dashed #0d1b2a;
+      border-radius: 10px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    button {
+      background-color: #1d3557;
+      color: #ffffff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 15px;
+      margin: 10px 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #457b9d;
+    }
+
+    #result {
+      margin-top: 25px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1d3557;
+    }
+
+    .spinner {
+      margin-top: 20px;
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #1d3557;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pneumonia Detection </h1>
+    <p class="instructions">Upload a chest X-ray image to detect pneumonia.</p>
+
+    <input type="file" id="imageUpload" accept="image/*"><br>
+
+    <button onclick="sendImage()"><i class="fas fa-microscope"></i> Predict</button>
+    <button onclick="resetForm()"><i class="fas fa-redo"></i> Reset</button>
+
+    <div id="spinner" class="spinner hidden"></div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function sendImage() {
+      const fileInput = document.getElementById('imageUpload');
+      const file = fileInput.files[0];
+      const spinner = document.getElementById('spinner');
+      const resultDiv = document.getElementById('result');
+
+      if (!file) {
+        alert("Please upload an image.");
+        return;
+      }
+
+      resultDiv.innerHTML = "";
+      spinner.classList.remove("hidden");
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const base64Image = reader.result.split(',')[1];
+
+        fetch("/predict", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ image: base64Image })
+        })
+        .then(response => response.json())
+        .then(data => {
+          spinner.classList.add("hidden");
+          resultDiv.innerHTML = `Prediction: <span style="color:green">${data[0].image}</span>`;
+        })
+        .catch(error => {
+          spinner.classList.add("hidden");
+          console.error("Error:", error);
+          resultDiv.innerHTML = `<span style="color:red">Prediction failed. Try again.</span>`;
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    function resetForm() {
+      document.getElementById('imageUpload').value = "";
+      document.getElementById('result').innerHTML = "";
+      document.getElementById('spinner').classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
