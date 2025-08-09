@@ -72,8 +72,9 @@ The goal of this project is to develop, track, and deploy a pneumonia detection 
 - Uses the trained DenseNet121 model for predictions via a REST API and HTML front-end.  
 - Runs locally using `app.py` during development.  
 - Configured to listen on a custom port in AWS after CICD deployment.
-- 
-<img width="1375" height="990" alt="Screenshot (398)" src="https://github.com/user-attachments/assets/067f5ea2-a742-42d3-b3ab-03c176947501" />
+ 
+<img src="https://github.com/user-attachments/assets/067f5ea2-a742-42d3-b3ab-03c176947501" width="400" height="300">
+
 
 ---
 
