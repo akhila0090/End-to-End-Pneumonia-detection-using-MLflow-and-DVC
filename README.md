@@ -22,66 +22,80 @@ The goal of this project is to develop, track, and deploy a pneumonia detection 
 ---
 
 ## 2. Model Development with DenseNet121
-DenseNet121, pre-trained on ImageNet, is selected for its strong feature extraction capabilities on chest X-ray images.  
-The top classification layers are removed and replaced with custom layers for binary classification (Pneumonia vs. Normal).  
-Top DenseNet layers are fine-tuned to improve accuracy.
-Evaluation metrics include Accuracy, Precision and Recall.
-
+- Selected **DenseNet121**, pre-trained on ImageNet, for strong feature extraction from chest X-ray images.  
+- Removed top classification layers and replaced them with custom layers for binary classification (Pneumonia vs. Normal).  
+- Fine-tuned top DenseNet layers to improve accuracy.  
+- Evaluated model using metrics:
+  - Accuracy
+  - Precision
+  - Recall
+ 
 ---
 
 ## 3. Experiment Tracking with MLflow
-MLflow is integrated to log parameters, metrics, and confusion matrices, as well as to store trained DenseNet121 model artifacts and tag model versions.  
-DagsHub is configured as the remote MLflow tracking server.  
-Using `mlflow ui`, experiments can be visualized and compared.  
-Environment variables are set to push experiment logs to the remote server.
+- Integrated MLflow to:
+  - Log parameters, metrics, and confusion matrices  
+  - Store trained DenseNet121 model artifacts  
+  - Tag model versions  
+- Configured **DagsHub** as the remote MLflow tracking server.  
+- Used `mlflow ui` to visualize and compare experiments.  
+- Set environment variables to push experiment logs to the remote server.
 
 ---
 
 ## 4. Data Version Control with DVC
-DVC is initialized to manage datasets and pipeline stages, ensuring that all data and models are versioned for reproducibility.  
-The `dvc repro` command is used to rerun the pipeline.  
-This setup helps maintain clear experiment history and simplifies collaboration.  
-It also ensures that the workflow can be reproduced at any stage.
-
+- Initialized DVC to manage datasets and pipeline stages.  
+- Ensured reproducibility by versioning all data and models.  
+- Used:
+  - `dvc repro` to rerun the pipeline from any stage  
+  - `dvc dag` to visualize the workflow  
+- Simplified collaboration and maintained a clear experiment history.
+  
 ---
 
 ## 5. Deployment with AWS and GitHub Actions
-The trained DenseNet121 model is deployed using an automated CI/CD pipeline with GitHub Actions and AWS services.  
-As part of the pipeline, the EC2 instance configured as a self-hosted GitHub Actions runner that builds the Docker image for the model inference service and pushes it to AWS ECR.  
-Then it pulls the image from ECR and runs it as a container to serve predictions.  
-IAM policies such as AmazonEC2FullAccess and AmazonEC2ContainerRegistryFullAccess are applied, and GitHub Secrets store AWS credentials and configuration details.
-
+- Used an **automated CI/CD pipeline** with GitHub Actions and AWS services.  
+- Configured an **EC2 instance** as a self-hosted GitHub Actions runner.  
+- During the pipeline:
+  - builds the Docker image for the model inference service.  
+  - The image is pushed to AWS **ECR**.  
+  - EC2 pulls the image from ECR and runs it as a container to serve predictions.  
+- Applied IAM policies:
+  - AmazonEC2FullAccess
+  - AmazonEC2ContainerRegistryFullAccess  
+- Stored AWS credentials and configuration details as GitHub Secrets.
 ---
 
 ## 6. Web Application for Pneumonia Detection
-A Flask-based web application is developed to provide an interface for uploading chest X-ray images and predicting whether the image indicates pneumonia or a normal condition.  
-The application uses the trained DenseNet121 model and exposes a prediction API along with an HTML front-end for ease of use.  
-It is run locally using `app.py` during development and configured to listen on a custom port when deployed to AWS after the CICD process.  
-
-
+- Developed a **Flask-based web application** for user interaction.  
+- Allows uploading of chest X-ray images to predict whether the case is normal or pneumonia.  
+- Uses the trained DenseNet121 model for predictions via a REST API and HTML front-end.  
+- Runs locally using `app.py` during development.  
+- Configured to listen on a custom port in AWS after CICD deployment.
+- 
 <img width="1375" height="990" alt="Screenshot (398)" src="https://github.com/user-attachments/assets/067f5ea2-a742-42d3-b3ab-03c176947501" />
 
 ---
 
 ## Outcome
-The result is a production-ready pneumonia detection system that uses DenseNet121 for robust chest X-ray classification.  
-It automates training and evaluation pipelines with DVC, tracks all experiments with MLflow, and deploys seamlessly to AWS using Docker and GitHub Actions.  
-A user-friendly web application enables real-time predictions through a browser interface.  
-This setup ensures reproducibility, scalability, and maintainability for real-world applications in medical imaging.
+- Production-ready pneumonia detection system using DenseNet121.  
+- Automated training and evaluation pipelines with DVC.  
+- Experiment tracking and model versioning using MLflow.  
+- Fully automated deployment to AWS using Docker and GitHub Actions.  
+- User-friendly web application for real-time pneumonia detection from chest X-ray images.
 
 ---
 
 ## Key Tools and Technologies
-Python (data handling and model training)  
-TensorFlow / Keras (DenseNet121 transfer learning)  
-MLflow (experiment tracking)  
-DVC (data and pipeline version control)  
-Docker (containerization)  
-AWS ECR and EC2 (cloud deployment)  
-GitHub Actions (CICD automation)  
-DagsHub (remote MLflow server)  
-Flask (web application framework)  
-
+- Python (data handling and model training)  
+- TensorFlow / Keras (DenseNet121 transfer learning)  
+- MLflow (experiment tracking)  
+- DVC (data and pipeline version control)  
+- Docker (containerization)  
+- AWS ECR and EC2 (cloud deployment)  
+- GitHub Actions (CICD automation)  
+- DagsHub (remote MLflow server)  
+- Flask (web application framework)  
 
 
 
