@@ -5,12 +5,19 @@
 The goal of this project is to develop, track, and deploy a pneumonia detection model using chest X-ray images. The model is built using DenseNet121 for high-accuracy feature extraction and classification. The entire workflow integrates MLflow for experiment tracking, DVC for data and pipeline management, and AWS CICD for automated deployment.
 
 ---
-
 ## 1. Project Setup and Configuration
-The project is organized with configuration files such as `config.yaml` for all paths and global settings, `params.yaml` for hyperparameters like batch size, learning rate, and epochs.
-Entity classes are created for structured configuration handling, and a Configuration Manager is implemented in `src/config` to load settings.  
-Components are built for data ingestion, data transformation, model training, and model evaluation.  
-These components are linked into pipelines for automation, with `main.py` used to trigger the pipelines and `dvc.yaml` updated to define the DVC pipeline stages.
+- Organized the project with:
+  - `config.yaml` for all paths and global settings  
+  - `params.yaml` for hyperparameters like batch size, learning rate, and epochs   
+- Created entity classes for structured configuration handling.  
+- Implemented a Configuration Manager in `src/config` to load settings.  
+- Built components for:
+  - Data ingestion
+  - Base model preperatin
+  - Model training
+  - Model evaluation  
+- Linked components into pipelines for automation.  
+- Added `main.py` to trigger pipelines and updated `dvc.yaml` to define the DVC pipeline stages.
 
 ---
 
