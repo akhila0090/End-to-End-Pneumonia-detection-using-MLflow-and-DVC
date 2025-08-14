@@ -5,6 +5,11 @@
 The goal of this project is to develop, track, and deploy a pneumonia detection model using chest X-ray images. The model is built using DenseNet121 for high-accuracy feature extraction and classification. The entire workflow integrates MLflow for experiment tracking, DVC for data and pipeline management, and AWS CICD for automated deployment.
 
 ---
+## Architecture
+
+<img width="600" height="500" alt="Screenshot (406)" src="https://github.com/user-attachments/assets/39731abf-f8c8-4bd9-adb0-625a5fa1a7fc" />
+
+---
 ## 1. Project Setup and Configuration
 - Organized the project with:
   - `config.yaml` for all paths and global settings  
